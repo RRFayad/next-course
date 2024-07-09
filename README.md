@@ -35,3 +35,7 @@
 
 - Built in Link component:
   `<Link href="performance">Performance</Link>`
+
+#### Common UI in Next JS with Layouts
+
+- In the layout.tsx we can render a component that will render with all pages
