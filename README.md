@@ -57,3 +57,9 @@
 - We saved the image files in the public directory
 
 e.g.: `<Image src={homeImage} alt="car factory" fill style={{ objectFit: "cover" }} />`
+
+#### More about Image Sizing
+
+- Layout shifting (when the iamge delays to load, so when it render, it changes the initial layout) is something we watn to always avoid
+  - That's why we use the 'fill' prop
+- When it's local image, it's automatic, when its from internet, we should manually insert height={} and width={}
