@@ -26,7 +26,7 @@
     - App Router? y
     - Change alias? n
 
-#### 3. File-Based Routing
+#### File-Based Routing
 
 - For the routing, we add files named "page" for each folder (which will be the route)
   - Each file must export by default a react component
@@ -39,3 +39,8 @@
 #### Common UI in Next JS with Layouts
 
 - In the layout.tsx we can render a component that will render with all pages
+
+#### Project Folder Structure
+
+- We will keep in the app folder only the pages
+  - The other files (compenents, util etc) will be structured in the src folder
