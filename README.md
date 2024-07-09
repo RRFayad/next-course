@@ -25,3 +25,8 @@
     - src/? y
     - App Router? y
     - Change alias? n
+
+#### 3. File-Based Routing
+
+- For the routing, we add files named "page" for each folder (which will be the route)
+  - Each file must export by default a react component
