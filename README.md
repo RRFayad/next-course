@@ -30,3 +30,8 @@
 
 - For the routing, we add files named "page" for each folder (which will be the route)
   - Each file must export by default a react component
+
+#### Linking Between Pages
+
+- Built in Link component:
+  `<Link href="performance">Performance</Link>`
