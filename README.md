@@ -44,3 +44,16 @@
 
 - We will keep in the app folder only the pages
   - The other files (compenents, util etc) will be structured in the src folder
+
+#### Absolute Path Shortcut
+
+- This '@' means the path from src (to avoid the messy '../../../')
+  `import Header from "@/components/header";`
+
+#### Images in Next JS - Image Component
+
+- The Image Component adjust the size for the screen (Next server will resize the image before sending to the Client)
+  - Work for local and online images
+- We saved the image files in the public directory
+
+e.g.: `<Image src={homeImage} alt="car factory" fill style={{ objectFit: "cover" }} />`
