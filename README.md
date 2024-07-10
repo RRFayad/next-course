@@ -111,3 +111,40 @@ db.snippet.create({
   data: { title: "Title", code: "const abc = () => {}" },
 });
 ```
+
+## 03 - Server Components
+
+- Now we have created the form, we need to work in the server components
+
+- Server actions
+
+  - Number one way to change data (CRUD) in a next app
+  - Server action are very integrated to HTML forms
+  - Server actions are functions that will be called when a form is submitted
+
+- Code:
+  - "use server" is a next special string to define its a server action;
+  - check formData type;
+  - redirect was imported from 'next/navigation'
+
+```javascript
+const createSnippet = async (formData: FormData) => {
+    // This needs to be a server action
+    "use server";
+    // Get input and validate
+    const title = formData.get("title") as string; // As TS give is type FormDataEntryValue (which may be a string or a file)
+    const code = formData.get("code") as string;
+
+    // Create a new record in the database
+    const snippet = await db.snippet.create({
+      data: {
+        title,
+        code,
+      },
+    });
+    console.log(snippet);
+
+    // Redirect (to the Home Page for now)
+    redirect("/");
+  };
+```
