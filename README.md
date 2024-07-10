@@ -70,6 +70,8 @@ e.g.: `<Image src={homeImage} alt="car factory" fill style={{ objectFit: "cover"
 
 ## 02 - Changing Data with Mutations (CRUD)
 
+- This is a project for CRUD operations for code snippets (we want to create and show users some snippets)
+
 #### Project Setup
 
 - We are going to work with SQLite (local DB) and Prisma
@@ -82,3 +84,30 @@ e.g.: `<Image src={homeImage} alt="car factory" fill style={{ objectFit: "cover"
 - We need to tell Prisma the different kinds of data
   - Create the model in schema.prisma
   - npx prisma migrate dev
+
+#### Creating a Prisma Client within Next.js
+
+- Our project flow must be:
+
+  - Create a Prisma client
+  - Create a form
+  - Define a Server Action (to be called when the form is submitted)
+  - Validate Input and Create a new snippet
+  - Redirect to Home Page (which shows all snippets)
+
+- Create a db file creating the client (that allows us to interact with the db):
+
+```javascript
+import { PrismaClient } from "@prisma/client";
+
+export const db = new PrismaClient();
+```
+
+- An example of using Prisma would be:
+
+```javascript
+// Remember that snippet comes from our Model
+db.snippet.create({
+  data: { title: "Title", code: "const abc = () => {}" },
+});
+```
