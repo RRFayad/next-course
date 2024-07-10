@@ -67,3 +67,18 @@ e.g.: `<Image src={homeImage} alt="car factory" fill style={{ objectFit: "cover"
 #### Production Deployment with Vercel
 
 - npx vercel
+
+## 02 - Changing Data with Mutations (CRUD)
+
+#### Project Setup
+
+- We are going to work with SQLite (local DB) and Prisma
+
+- Setting Up Prisma
+
+  - npm install prisma
+  - npx prisma init --datasource-provider sqlite
+
+- We need to tell Prisma the different kinds of data
+  - Create the model in schema.prisma
+  - npx prisma migrate dev
