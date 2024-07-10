@@ -148,3 +148,64 @@ const createSnippet = async (formData: FormData) => {
     redirect("/");
   };
 ```
+
+#### A Deeper Dive into Server Actions
+
+- When using React, we tipically send HTTP requests to a API;
+
+- With Next, IN THE SAME PROJECT, some of our code is in the server, and some in the client
+
+- When we use 'use server' it defines the code is server concern
+  - So there's te post, and the response
+    **So, it's important to know where the code is actually running**
+
+#### Server Components vs Client Components (Fetching data)
+
+##### Fetching Data:
+
+1. Create a server component (a component that does not have 'use client' at the top);
+2. Mark the component as 'async';
+3. Make an HTTP request OR directly access a DB;
+4. Render it (or pass to a child)
+
+##### 2 types of components:
+
+- Client Component
+
+  - Same as React Components - With the usual rules (incluiding hooks and events)
+  - We write 'use client' in the top of the file to define it as client component
+  - It can not show directly a Server Component (there is one exception)
+
+- Server Component
+
+  - We want to generally prefer Server Components
+    - Better Performance + UX
+  - By default, all component are server components
+  - We can use async/await directly on the body of the component
+    - We don't need to use useState or useEffect to fetch data anymore
+  - **Limitations**:
+    - Server components can not use any kind of hook
+    - Can not assign any event handlers
+
+##### When to use each type?
+
+- Use Client Component - Generally Speaking - when:
+  - Need to use hooks;
+  - Need to use event handlers;
+
+##### Next Server Dynamics:
+
+- Browser makes Request => Server Components Returns a HTML => New HTTp Request is made => Server bundles Client Components into JS to send back
+
+#### Fetching Data with Server Components
+
+(Again, our checklist)
+
+- Create a server component (a component that does not have 'use client' at the top);
+  - Ok, it does not
+- Mark the component as 'async';
+  - Done
+- Make an HTTP request OR directly access a DB;
+  - In our case, it's not a separated API, so, we can access the DB directly
+  - DOne
+- Render it (or pass to a child)
