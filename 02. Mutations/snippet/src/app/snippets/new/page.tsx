@@ -17,7 +17,6 @@ export default function CreateSnippetPage() {
         code,
       },
     });
-    console.log(snippet);
 
     // Redirect (to the Home Page for now)
     redirect("/");

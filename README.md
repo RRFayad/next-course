@@ -245,3 +245,12 @@ const SnippetShowPage = async ({ params }: SnippetShowPageProps) => {
 export default SnippetShowPage;
 
 ```
+
+#### Customize Not Found Pages
+
+##### Special File Names in the 'app' folder:
+
+![Special File Names](/readme%20imgs/image.png)
+
+- So, we can create our custom not-found.tsx page
+  - When needed, Next will look for the closest not-found file (not necessairly in the same directory)
