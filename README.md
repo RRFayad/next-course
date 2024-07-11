@@ -259,3 +259,14 @@ export default SnippetShowPage;
 
 - We can add a loading.tsx page to be shown when it's loading (fetching data or something)
   - I don't have to call anything in my page, it will automatically look for a loading.tsx file
+
+* Obs.: Just to remember, when I want to force a Promise and await:
+  `await new Promise((r) => setTimeout(r, 2000));`
+
+#### Some tasks and tips
+
+- TO create a lot of files such as loading, not-found etc, it will becomes mnessy
+
+  - So, it's up to the dev, how many files he will implement, an when he is going to use pure jsx
+
+-
