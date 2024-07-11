@@ -254,3 +254,8 @@ export default SnippetShowPage;
 
 - So, we can create our custom not-found.tsx page
   - When needed, Next will look for the closest not-found file (not necessairly in the same directory)
+
+#### Automatic Loading Pages
+
+- We can add a loading.tsx page to be shown when it's loading (fetching data or something)
+  - I don't have to call anything in my page, it will automatically look for a loading.tsx file
