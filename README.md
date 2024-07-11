@@ -209,3 +209,9 @@ const createSnippet = async (formData: FormData) => {
   - In our case, it's not a separated API, so, we can access the DB directly
   - DOne
 - Render it (or pass to a child)
+
+#### Dynamic Paths
+
+- We name the folders with [variableNameHere]
+  - This will make we receive the params in the props automatically (in our case the folder is [id]) as a string
+    - `{ params: { id: '2' }, searchParams: {} }`
