@@ -300,6 +300,20 @@ export default SnippetShowPage;
   }
   ```
 
-#### 34. Adding the Monaco Editor
+#### Adding the Monaco Editor && Handling Editor Changes
 
 - npm install @monaco-editor/react
+
+- When we are going to update our code, we need to do some server actions
+
+  - **Important:** Server actions **cannot** be defined in Client Components
+
+- So, we have 2 options to use a server action in a Client Component:
+
+  - We can pass Server Action through props
+    - And this is the Exception that we can pass event handlers down to a Client Component
+    - When we are passing server action
+  - Or, we can Define a separate file with server actions (multiple server action, lke an util file) and call it
+    - When we do it, we don't need to write 'use server' for every server action
+
+- We will use option number 2 - A file to centralize all server actions
