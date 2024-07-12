@@ -299,3 +299,7 @@ export default SnippetShowPage;
     snippet: Snippet;
   }
   ```
+
+#### 34. Adding the Monaco Editor
+
+- npm install @monaco-editor/react
