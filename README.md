@@ -175,6 +175,7 @@ const createSnippet = async (formData: FormData) => {
   - Same as React Components - With the usual rules (incluiding hooks and events)
   - We write 'use client' in the top of the file to define it as client component
   - It can not show directly a Server Component (there is one exception)
+  - Usually we will have the client components inside the components folder
 
 - Server Component
 
@@ -190,8 +191,13 @@ const createSnippet = async (formData: FormData) => {
 ##### When to use each type?
 
 - Use Client Component - Generally Speaking - when:
+
   - Need to use hooks;
   - Need to use event handlers;
+
+- Use Server Component - Generally Speaking - when:
+  - When there's data fetching
+  - Always it's possible :)
 
 ##### Next Server Dynamics:
 
@@ -269,4 +275,27 @@ export default SnippetShowPage;
 
   - So, it's up to the dev, how many files he will implement, an when he is going to use pure jsx
 
--
+#### 33. Showing a Client Component in a Server Component
+
+- We are working on the edit page
+
+- We want to show a code editor to the user
+
+  - for that, we are going to use React Monaco Editor
+  - And for that we will work with hooks and event handlers
+  - So, we need to create a client component
+  - **Important:** Note that we don't really want to make our editPage a client components, as it's fetching data, we want to create a client component to be called inside the server component
+
+  - Important to note that the client component is rendered on the server side, to then send the HTML and the inject some JS (for the handling events)
+
+  #### Obs About Prisma and Types:
+
+  - We can import te type from Orisma Model
+
+  ```typescript
+  import type { Snippet } from "@prisma/client";
+
+  interface SnippetEditFormProps {
+    snippet: Snippet;
+  }
+  ```
