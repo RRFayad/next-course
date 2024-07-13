@@ -318,6 +318,20 @@ export default SnippetShowPage;
 
 - We will use option number 2 - A file to centralize all server actions
 
+#### 38. Options for Calling Server Actions from Client Components
+
+- Now we have 02 options:
+
+1. Like in the server componen with a bind:
+
+- ![Option 1](./readme%20imgs/option1.png)
+
+2. More like regular React approach
+
+- ![Option 2](./readme%20imgs//Option2.png)
+
+- Stephen usually likes more option 2 (I felt the same way) but Next docs usually prefer option 1
+
 #### General Obs.:
 
 - When we call a file index.ts we don't need to specify the file name in the import, its implict
