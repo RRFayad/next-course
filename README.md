@@ -317,3 +317,7 @@ export default SnippetShowPage;
     - When we do it, we don't need to write 'use server' for every server action
 
 - We will use option number 2 - A file to centralize all server actions
+
+#### General Obs.:
+
+- When we call a file index.ts we don't need to specify the file name in the import, its implict
