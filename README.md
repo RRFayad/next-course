@@ -112,7 +112,7 @@ db.snippet.create({
 });
 ```
 
-## 03 - Server Components
+## 03 - Server Components & 04. Server Actions in Greater Detail
 
 - Now we have created the form, we need to work in the server components
 
@@ -375,3 +375,24 @@ export default SnippetShowPage;
 #### General Obs.:
 
 - When we call a file index.ts we don't need to specify the file name in the import, its implict
+
+## 5. Server Form wih UseFormState
+
+#### 41. Understanding the UseFormState Hook
+
+- Our application is working, but we have no validation in the form neither error handling for when running server actions
+
+  - Important to remember that, a big point of firms, is that they can work without any JS in the browser;
+  - Rght now, forms in our pages are sending info **to** a server action
+  - So, we need to communicate **from a server action back to the page** with the error message
+  - React-dom (not react) has useFormState hook specially for this
+
+- How Server Form work without useFormState:
+
+  - ![No useFormState](./readme%20imgs/5.1%20-%20no%20hook.png)
+
+- With useFormState:
+
+  - ![With useFormState](./readme%20imgs/5.1.%20with%20hook.png)
+
+- There's the FormState along the proccess, and nor our Server Action must return the FormState (with some message iof there's an error to communicate to the user)
