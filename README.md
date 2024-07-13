@@ -396,3 +396,29 @@ export default SnippetShowPage;
   - ![With useFormState](./readme%20imgs/5.1.%20with%20hook.png)
 
 - There's the FormState along the proccess, and nor our Server Action must return the FormState (with some message iof there's an error to communicate to the user)
+
+#### 42. UseForm State in Action
+
+- We set our createSnippet in the actions file;
+  - It receives formState and formData:
+  ```javascript
+    export async function createSnippet(formState: { message: string }, formData: FormData) {
+    return { message: "Title must be longer" };
+    }
+  ```
+- We set useFormState:
+
+  - It receives the action and the empty message formState;
+  - It returns the current state and the updated action;
+
+  ```javascript
+  const [formState, action] = useFormState(actions.createSnippet, { message: "" });
+  ```
+
+- We bound it to the form, with a conditional rendering of the state
+  ```javascript
+  <form action={action}>
+    // ... logic
+    <div>{formState.message}</div> // User feedback // ... logic
+  </form>
+  ```
