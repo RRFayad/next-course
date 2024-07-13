@@ -23,7 +23,9 @@ export default function CreateSnippetPage() {
           </label>
           <textarea name="code" className="border rounded p-2 w-full" id="code" />
         </div>
-        <div>{formState.message}</div>
+
+        {formState.message ? <div className="my-1  text-red-500">{formState.message}</div> : null}
+
         <button type="submit" className="rounded p-2 bg-blue-200">
           Create
         </button>
