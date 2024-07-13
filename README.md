@@ -367,9 +367,11 @@ export default SnippetShowPage;
   </form>;
   ```
 
-```
+#### Deleting a Record - A Server Action in a Server Component
+
+- To create a delete button with a server action in a server component, I had to:
+  - Wrap the button in a form, and bind the server action to run it as an action of the form (it did not work other way - Like onClick, or a callback to the action instead of creating a bound function)
 
 #### General Obs.:
 
 - When we call a file index.ts we don't need to specify the file name in the import, its implict
-```
