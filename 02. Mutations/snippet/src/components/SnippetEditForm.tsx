@@ -16,6 +16,9 @@ const SnippetEditForm = ({ snippet }: SnippetEditFormProps) => {
     setCode(value);
   };
 
+  // Here we can have a server action, preloaded with our state arguments
+  const editSnippetAction = actions.editSnippet.bind(null, snippet.id, code); // Remember the 'bind()' is like preconfiguring the function with the arguments I want (and not running it yet)
+
   return (
     <div>
       <Editor
@@ -26,6 +29,11 @@ const SnippetEditForm = ({ snippet }: SnippetEditFormProps) => {
         options={{ minimap: { enabled: false } }}
         onChange={editorChangeHandler}
       />
+      <form action={editSnippetAction}>
+        <button type="submit" className="p-2 border rounded">
+          Save
+        </button>
+      </form>
     </div>
   );
 };

@@ -332,6 +332,44 @@ export default SnippetShowPage;
 
 - Stephen usually likes more option 2 (I felt the same way) but Next docs usually prefer option 1
 
+#### Calling a Server Action from a Client Component
+
+- Server Action (in a server file):
+
+  ```javascript
+  "use server";
+
+  import { db } from "@/db";
+  import { redirect } from "next/navigation";
+
+  export async function editSnippet(id: number, code: string) {
+    await db.snippet.update({
+      where: { id },
+      data: { code },
+    });
+    redirect(`/snippets/${id}`);
+  }
+  ```
+
+- Client Component using it with state values as arguments:
+
+  ```javascript
+  // Here we can have a server action, preloaded with our state arguments
+  const editSnippetAction = actions.editSnippet.bind(null, snippet.id, code);
+  // Remember the 'bind()' is like preconfiguring the function with the arguments I want (and not running it yet)
+
+  // ... Component logic here....
+
+  <form action={editSnippetAction}>
+    <button type="submit" className="p-2 border rounded">
+      Save
+    </button>
+  </form>;
+  ```
+
+```
+
 #### General Obs.:
 
 - When we call a file index.ts we don't need to specify the file name in the import, its implict
+```
