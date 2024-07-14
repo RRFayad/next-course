@@ -422,3 +422,38 @@ export default SnippetShowPage;
     <div>{formState.message}</div> // User feedback // ... logic
   </form>
   ```
+
+#### 44. Error Handling in Nextjs - Error File
+
+- An error with the DB interaction would break our code, so we must handle other errors besides the input validation;
+
+- There is the error page, for that, we should create the **error.tsx** file and **it must be a client component**;
+
+  - If we simply throw an error, we go to the Error page, but with no route to leave it;
+  - So the best approach is to handle possible errors to return a error message to the useFormState:
+    - **Obs.:** - the redirect() must be out of the try catch block
+
+  ```javascript
+    export async function createSnippet(formState: { message: string }, formData: FormData) {
+    // data handling logic here...
+
+  try {
+    // Create a new record in the database
+    const snippet = await db.snippet.create({
+      data: {
+        title,
+        code,
+      },
+    });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return { message: err.message };
+    } else {
+      return { message: "Something Went Wrong" };
+    }
+  }
+
+  redirect("/"); // Never use it inside the try catch (it will return a weird error message)
+  // Redirect (to the Home Page for now)
+  }
+  ```
