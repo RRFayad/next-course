@@ -494,3 +494,13 @@ export default SnippetShowPage;
 
   - So a dynamic path is dynamic, or we can simpl opt for:
     `export const dynamic = "force-dynamic";`
+
+#### Cache Controls
+
+- Time-Based: `export const revalidate = 3  // revalidate each 3 seconds`
+- On Demand: `revalidatePath('/path-to-be-updated-here')`
+  - Probably in the server actions
+- Disable Caching: `export const dynamic = "force-dynamic";` (or `export const revalidate = 0`)
+
+- As we know when the data will be updated, we will use the on-demand approach:
+  ![On Demand Caching](./readme%20imgs/on-demand-cache.png)

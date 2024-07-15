@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 import { redirect } from "next/navigation";
 
@@ -17,6 +18,7 @@ export async function deleteSnippet(id: number) {
     where: { id },
   });
 
+  revalidatePath("/");
   redirect(`/`);
 }
 
@@ -48,6 +50,7 @@ export async function createSnippet(formState: { message: string }, formData: Fo
     }
   }
 
+  revalidatePath("/");
   redirect("/"); // Never use it inside the try catch (it will return a weird error message)
   // Redirect (to the Home Page for now)
 }
