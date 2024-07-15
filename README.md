@@ -457,3 +457,40 @@ export default SnippetShowPage;
   // Redirect (to the Home Page for now)
   }
   ```
+
+## 6. Next Caching System
+
+- Simulate production:
+
+  - npm run build
+  - npm run start
+
+- When in production, we added a new item, and when refreshed the item was gone!
+
+#### 46. The Full Route Cache System
+
+![Caching](./readme%20imgs/Caching.png)
+
+- The 1sts three, we are already dealing during the development, but when in production, we deal with the Full Route Cache
+
+- The Full Route Cache:
+
+  - Next will render the HomeRoute (and fetch the data)
+  - Next recognizes the page as Static (it is Static or Dynamic), and it has a "very strong caching"
+  - So it renders the component into a HTML file, with the fetched data
+  - So, in the last lecture, when we refresh the page, it's because of the caching
+
+- It's mainly because Next recognized our HomePage as Static
+
+  - When we run npm build we have 2 different symbols:
+    - o for static data - Now will render it only once
+    - ƒ for dynamic data
+
+- How does NExt decide what is static or dynamic?
+
+  - All, by default, is static
+  - What makes a page dynamc:
+    ![Dynamic Routes](./readme%20imgs/Dynamic%20Routes.png)
+
+  - So a dynamic path is dynamic, or we can simpl opt for:
+    `export const dynamic = "force-dynamic";`
