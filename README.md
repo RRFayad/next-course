@@ -504,3 +504,35 @@ export default SnippetShowPage;
 
 - As we know when the data will be updated, we will use the on-demand approach:
   ![On Demand Caching](./readme%20imgs/on-demand-cache.png)
+
+#### Enabling Caching for Dynamic Routes - GenerateStaticsParams
+
+![Theory](./readme%20imgs/GenerateStaticParams.png)
+
+- In the page we added the GenerateStaticsParams() to the caching:
+
+  ```javascript
+  export async function generateStaticParams() {
+    const snippets = await db.snippet.findMany();
+
+    return snippets.map((snippet) => {
+      return {
+        id: snippet.id.toString(), // Next expects strings here
+      };
+    });
+  }
+  ```
+
+- And in the server actoins we needed to revalidatePath to update:
+
+  ```javascript
+    export async function editSnippet(id: number, code: string) {
+  await db.snippet.update({
+    where: { id },
+    data: { code },
+  });
+
+  revalidatePath(`/snippets/${id}`);
+  redirect(`/snippets/${id}`);
+  }
+  ```
