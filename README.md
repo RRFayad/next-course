@@ -550,3 +550,37 @@ export default SnippetShowPage;
 - next-auth / authjs (same library - renamed)
 
 #### 55 NextUI Set up
+
+- npm install --save-exact @nextui-org/react@2.2.9 framer-motion
+- tailwind.config.js:
+
+  ```javascript
+    import { nextui } from "@nextui-org/react";
+    content: [
+        // ... Previous rules
+      "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    ],
+    //....
+    darkMode: "class",
+    plugins: [nextui()],
+  ```
+
+- Create providers.tsx (inside the app folder):
+
+  ```javascript
+      "use client";
+
+      import { NextUIProvider } from "@nextui-org/react";
+
+      interface ProvidersProps {
+        children: React.ReactNode;
+      }
+      export default function Providers({ children }: ProvidersProps) {
+        return <NextUIProvider>{children}</NextUIProvider>;
+      }
+
+  ```
+
+- In the layout.tsx - Wrap the children inside the Providers we just created
+
+- Delete globals.css css code (keep the tw configs)
