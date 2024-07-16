@@ -536,3 +536,17 @@ export default SnippetShowPage;
   redirect(`/snippets/${id}`);
   }
   ```
+
+## 7. Next-Auth
+
+- Our project will be a Social Media with Authentication, where user will be able to post and intereact between posts
+
+![Project](./readme%20imgs/Next-Auth-Proj.png)
+
+#### 54. Critical Libraries in Our Project
+
+- Prisma - SQLite
+- nextui - Component Library (works well with TW)
+- next-auth / authjs (same library - renamed)
+
+#### 55 NextUI Set up
