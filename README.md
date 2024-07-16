@@ -590,6 +590,8 @@ export default SnippetShowPage;
 - npm install prisma
 - npx prisma init --datasource-provider sqlite
 - Define the schema (schema.prisma)
+  - Check out prisma adaptar models
+  - https://next-auth.js.org/v3/adapters/typeorm/postgres
 - Create our database:
 
   - npx prisma migrate dev
@@ -606,4 +608,13 @@ export default SnippetShowPage;
 ![Steps](./readme%20imgs//OAuth%20Steps.png)
 
 - Create the app config in the third party apps (in our case - github)
-  npm install --save-exact @auth/core@0.18.1 @auth/prisma-adapter@1.0.6 next-auth@5.0.0-beta.3
+
+  - .env.local
+    ```env
+    GITHUB_CLIENT_ID =
+    GITHUB_CLIENT_SECRET =
+    AUTH_SECRET=
+    ```
+  - npm install --save-exact @auth/core@0.18.1 @auth/prisma-adapter@1.0.6 next-auth@5.0.0-beta.3
+
+  - create auth.ts file (check file for details)
