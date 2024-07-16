@@ -600,3 +600,10 @@ export default SnippetShowPage;
 
     export const db = new PrismaClient();
     ```
+
+#### 58. OAuth Setup
+
+![Steps](./readme%20imgs//OAuth%20Steps.png)
+
+- Create the app config in the third party apps (in our case - github)
+  npm install --save-exact @auth/core@0.18.1 @auth/prisma-adapter@1.0.6 next-auth@5.0.0-beta.3
