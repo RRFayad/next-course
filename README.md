@@ -584,3 +584,19 @@ export default SnippetShowPage;
 - In the layout.tsx - Wrap the children inside the Providers we just created
 
 - Delete globals.css css code (keep the tw configs)
+
+#### 57. Database Setup
+
+- npm install prisma
+- npx prisma init --datasource-provider sqlite
+- Define the schema (schema.prisma)
+- Create our database:
+
+  - npx prisma migrate dev
+  - Create db folder, with an index file for the db client:
+
+    ```javascript
+    import { PrismaClient } from "@prisma/client";
+
+    export const db = new PrismaClient();
+    ```
