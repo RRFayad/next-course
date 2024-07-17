@@ -704,3 +704,21 @@ export default async function Home() {
     return <div>User NOT signed in!</div>;
   }
   ```
+
+#### Upfront Design Process
+
+- Steps Stephen Recommends when thinking in the project:
+  - Identify the routes + data that each show
+  - Make 'path helper' functions
+  - Create routing folders + page.tsx
+  - Identify places where data is dynamic
+  - Define the server actions needed (wite them empty)
+  - **Important**Add in comments what paths need to _revalidate_ for each server action
+    - **Remember: revalidatePath() to define dynamic data and avoid Caching Errors**
+
+|   Page Name   |                 Path                 | Data Shown                 |
+| :-----------: | :----------------------------------: | :------------------------- |
+|   Home Page   |                  /                   | Many Posts, Many topics    |
+|  Topic Show   |         /topics/[topicName]          | single topic, many posts   |
+| Create a Post |   /topics/[topicName] / posts/new    | single topic, many posts   |
+|  Show a Post  | /topics/[topicName] / posts/[postId] | single post, many comments |
