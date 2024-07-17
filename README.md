@@ -637,3 +637,7 @@ export default SnippetShowPage;
 #### Auth in Server Actions (Optional - For better readability)
 
 - We set the signIn and signOut in the server actions file
+
+#### Sign In, Sign out, and Checking Auth Status (From Server Component and from Client Component)
+
+![Auth Functions](./readme%20imgs//Auth%20Functions.png)
