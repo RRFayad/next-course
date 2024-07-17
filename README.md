@@ -617,4 +617,19 @@ export default SnippetShowPage;
     ```
   - npm install --save-exact @auth/core@0.18.1 @auth/prisma-adapter@1.0.6 next-auth@5.0.0-beta.3
 
-  - create auth.ts file (check file for details)
+#### 59. Next-Auth Setup
+
+- create auth.ts file (check file for details)
+
+#### Creating the OAuth API
+
+- Folder Structure:
+
+  - app
+    - api
+      - auth
+        - [...nextauth]
+          - route.ts
+
+- OAuth:
+  ![OAuth](./readme%20imgs/OAuth.png)
