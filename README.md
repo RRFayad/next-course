@@ -633,3 +633,7 @@ export default SnippetShowPage;
 
 - OAuth:
   ![OAuth](./readme%20imgs/OAuth.png)
+
+#### Auth in Server Actions (Optional - For better readability)
+
+- We set the signIn and signOut in the server actions file
