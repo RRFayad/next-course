@@ -641,3 +641,66 @@ export default SnippetShowPage;
 #### Sign In, Sign out, and Checking Auth Status (From Server Component and from Client Component)
 
 ![Auth Functions](./readme%20imgs//Auth%20Functions.png)
+
+- Checking it from a server component:
+
+```javascript
+import { Button } from "@nextui-org/react";
+import * as actions from "@/actions";
+import { auth } from "@/auth";
+
+export default async function Home() {
+  const session = await auth();
+  return (
+    <div>
+      <form action={actions.signIn}>
+        <Button type="submit">Sign in!!</Button>
+      </form>
+      <form action={actions.signOut}>
+        <Button type="submit">Sign Out!!</Button>
+      </form>
+      {session?.user ? <div>Signed in - {JSON.stringify(session.user)}</div> : <div> Signed out </div>}
+    </div>
+  );
+}
+```
+
+- From a CLient Component:
+
+  - in provider.tsx - wrap the return with the SessionPrivider
+
+  ```javascript
+  "use client";
+
+  import { NextUIProvider } from "@nextui-org/react";
+  import { SessionProvider } from "next-auth/react";
+
+  interface ProvidersProps {
+  children: React.ReactNode;
+  }
+  export default function Providers({ children }: ProvidersProps) {
+    return (
+      <SessionProvider>
+      <NextUIProvider>{children}</NextUIProvider>
+      </SessionProvider>
+    );
+  }
+  ```
+
+  - In the Client COmponent: - Pay attention that in the client it's `session.data?.user`(while in server it `session?.user`)
+
+  ```javascript
+  "use client";
+
+  import { useSession } from "next-auth/react";
+
+  export default function Profile() {
+    const session = useSession();
+
+    if (session.data?.user) {
+      return <div>User is signed in! ({JSON.stringify(session.data.user)})</div>;
+    }
+
+    return <div>User NOT signed in!</div>;
+  }
+  ```
