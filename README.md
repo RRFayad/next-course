@@ -705,6 +705,8 @@ export default async function Home() {
   }
   ```
 
+### Structuring the Project (**Implement this Steps to my process**)
+
 #### Upfront Design Process
 
 - Steps Stephen Recommends when thinking in the project:
@@ -742,3 +744,22 @@ export default async function Home() {
 - Now we want to identify all the places where data changes and create empty server actions for those
 
 - It's a good practice to create a file for each server action, centralizing them in an index.ts file and exporting all
+
+#### Planning Revalidating Strategies
+
+- Remember about the Caching
+
+  - So, I define where my data is dynamic
+  - And add Comments about the need of implementing Caching Revalidation
+    - So it's basically about looking to all actions vs all Routes and asking mself if there will be side effects
+
+- Stephen discuss about the revalidating tactics
+  - e.g.: When a new comment, inside a topic is created, depending on the size of our project, we can implement a timing revalidation (as the users don't really expect to see the update in the very second it occurs)
+
+### Coding
+
+#### Building the Header
+
+#### Some Obs During the Development:
+
+- We centralize 'repeated components' such as the navbar in the layout.tsx
