@@ -732,3 +732,7 @@ export default async function Home() {
   - That's why we create a set of functions, to determine all the paths
 
 - Create the path.ts file
+
+#### Creating The Routing Structure
+
+- Created the folder structure
