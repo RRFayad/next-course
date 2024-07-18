@@ -722,3 +722,13 @@ export default async function Home() {
 |  Topic Show   |         /topics/[topicName]          | single topic, many posts   |
 | Create a Post |   /topics/[topicName] / posts/new    | single topic, many posts   |
 |  Show a Post  | /topics/[topicName] / posts/[postId] | single post, many comments |
+
+#### Path Helpers
+
+##### Why Path Helpers?
+
+- If we decide do a change in a path, we will have to hunt all the links in the code base
+
+  - That's why we create a set of functions, to determine all the paths
+
+- Create the path.ts file
