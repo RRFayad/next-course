@@ -537,7 +537,7 @@ export default SnippetShowPage;
   }
   ```
 
-## 7. Next-Auth
+## 7. Next-Auth (A Full Project to Model)
 
 - Our project will be a Social Media with Authentication, where user will be able to post and intereact between posts
 
@@ -736,3 +736,9 @@ export default async function Home() {
 #### Creating The Routing Structure
 
 - Created the folder structure
+
+#### Stubbing Out Server Actions
+
+- Now we want to identify all the places where data changes and create empty server actions for those
+
+- It's a good practice to create a file for each server action, centralizing them in an index.ts file and exporting all
