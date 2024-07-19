@@ -758,8 +758,11 @@ export default async function Home() {
 
 ### Coding
 
+#### Header
+
 - Built the Header;
 - Displayed the Sign In and Sign Out Buttons
+- Enabled SIgn Out
 
 #### Some Obs During the Development:
 
