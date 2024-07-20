@@ -780,6 +780,44 @@ export default async function Home() {
   **Styling:** Note how Stephen set the Home Page with a grid
 - Created the button to New Topic and form
 - Created the popover form
+- Wrapped formData with server action
+
+#### Adding Validatin with Zod
+
+- With Zod we create a Schema, so, we get a validator object
+- npm install zod
+- zod logic:
+  ![Zod](./readme%20imgs/zod.png)
+
+- Our code for implementing Zod:
+
+  ```javascript
+  "use server";
+
+    import { z } from "zod";
+
+    const createTopicSchema = z.object({
+      name: z
+        .string()
+        .min(3)
+        .regex(
+          /[a-z-]/, // lowercase or dash characters
+          { message: "Must be lowercase letter or dashes without spaces" }
+        ),
+      description: z.string().min(10),
+    });
+
+    export async function createTopic(formData: FormData) {
+      const result = createTopicSchema.safeParse({ name: formData.get("name"), description: formData.get("description") });
+
+      if (!result.success) {
+        console.log(result.error.flatten().fieldErrors); // Method to make the error mapping easier
+      }
+
+      //TODO: revalidatePath('/')
+    }
+
+  ```
 
 #### Some Obs During the Development:
 
