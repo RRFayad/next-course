@@ -763,7 +763,15 @@ export default async function Home() {
 - Built the Header;
 - Displayed the Sign In and Sign Out Buttons
 - Enabled SIgn Out
+- Solve Caching Issue:
+  - Right now all my pages are set as dynamic, and that's because of the auth() in the Header (which is shown in all pages)
+  - auth() handles cookies - which is one of the rules to make a page dynamic
+  - So, we are gonna move the auth stuff into a client component
+- HeaderAuth client component:
+  - we need to use useSession() - It makes a req to the backend to get auth status
+    - Great! We built it, and now it's static again!
 
 #### Some Obs During the Development:
 
+- **Caching Issues: **During the development, it makes sense from time to time to run _npm run build_ and check the caching
 - We centralize 'repeated components' such as the navbar in the layout.tsx
