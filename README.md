@@ -776,10 +776,13 @@ export default async function Home() {
 - We are going to create the logic to create new topics
   - A btn 'New Topic' which will open a form in a modal, with form validation (in server actions) to then, we work in the topic search bar
   - Our homepage will contain the postList and the TopicCreateForm
+- Created the homepage structure
+  **Styling:** Note how Stephen set the Home Page with a grid
+- Created the button to New Topic and form
+- Created the popover form
 
 #### Some Obs During the Development:
 
 - **Caching Issues: **During the development, it makes sense from time to time to run _npm run build_ and check the caching
 - We centralize 'repeated components' such as the navbar in the layout.tsx
-
 - **Styling:** Note how Stephen set the Home Page with a grid
