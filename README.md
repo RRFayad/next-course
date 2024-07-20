@@ -771,7 +771,15 @@ export default async function Home() {
   - we need to use useSession() - It makes a req to the backend to get auth status
     - Great! We built it, and now it's static again!
 
+#### New Topic Logic
+
+- We are going to create the logic to create new topics
+  - A btn 'New Topic' which will open a form in a modal, with form validation (in server actions) to then, we work in the topic search bar
+  - Our homepage will contain the postList and the TopicCreateForm
+
 #### Some Obs During the Development:
 
 - **Caching Issues: **During the development, it makes sense from time to time to run _npm run build_ and check the caching
 - We centralize 'repeated components' such as the navbar in the layout.tsx
+
+- **Styling:** Note how Stephen set the Home Page with a grid
