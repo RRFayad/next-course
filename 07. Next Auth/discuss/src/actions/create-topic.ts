@@ -1,7 +1,12 @@
 "use server";
 
+import { Topic } from "@prisma/client";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 import { auth } from "@/auth";
+import { db } from "@/db";
+import paths from "@/paths"; // The paths file we created
 
 interface CreateTopicFormState {
   errors: {
@@ -39,7 +44,27 @@ export async function createTopic(formState: CreateTopicFormState, formData: For
     };
   }
 
-  return { errors: {} };
+  let topic: Topic;
 
-  //TODO: revalidatePath('/')
+  try {
+    topic = await db.topic.create({
+      data: { slug: result.data.name, description: result.data.description },
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        errors: {
+          _form: [error.message],
+        },
+      };
+    } else {
+      return {
+        errors: {
+          _form: ["Something went wrong"],
+        },
+      };
+    }
+  }
+  revalidatePath("/");
+  redirect(paths.topicShow(topic.slug));
 }

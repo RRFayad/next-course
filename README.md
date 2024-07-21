@@ -434,6 +434,7 @@ export default SnippetShowPage;
   - If we simply throw an error, we go to the Error page, but with no route to leave it;
   - So the best approach is to handle possible errors to return a error message to the useFormState:
     - **Obs.:** - the redirect() must be out of the try catch block
+      - To be precise here, it works this way because redirect() throws an error
 
   ```javascript
     export async function createSnippet(formState: { message: string }, formData: FormData) {
@@ -890,10 +891,14 @@ export default TopicCreateForm;
 #### Handling "General Form Errors"
 
 - We want to adding auth verification (we want the user to be logged in to create a new topic)
-
   - So it will be a verification for the whole form, not each input error
+  - We just added one more property to our formState for the overall form
 
--
+#### Handling Database Errors in Forms
+
+- Now we want to send the validated data to the database to return in our topics list
+- We created the logic to create the newTopic in the server action
+- Also, we added the revalidatePath()
 
 #### Some Obs During the Development:
 
