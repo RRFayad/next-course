@@ -382,7 +382,7 @@ export default SnippetShowPage;
 
 - Our application is working, but we have no validation in the form neither error handling for when running server actions
 
-  - Important to remember that, a big point of firms, is that they can work without any JS in the browser;
+  - Important to remember that, a big point of forms, is that they can work without any JS in the browser;
   - Rght now, forms in our pages are sending info **to** a server action
   - So, we need to communicate **from a server action back to the page** with the error message
   - React-dom (not react) has useFormState hook specially for this
@@ -410,6 +410,8 @@ export default SnippetShowPage;
 
   - It receives the action and the empty message formState;
   - It returns the current state and the updated action;
+  - **Important:** Type of useFormState state (2nd arg), must match with the return of the server action
+    - Check its implemention in the Next Auth Project
 
   ```javascript
   const [formState, action] = useFormState(actions.createSnippet, { message: "" });
@@ -782,7 +784,7 @@ export default async function Home() {
 - Created the popover form
 - Wrapped formData with server action
 
-#### Adding Validatin with Zod
+#### Adding Validation with Zod
 
 - With Zod we create a Schema, so, we get a validator object
 - npm install zod
@@ -816,8 +818,74 @@ export default async function Home() {
 
       //TODO: revalidatePath('/')
     }
-
   ```
+
+#### useFormState for returning validation error messages
+
+- **Important:** The types of: useFormState state, serverAction formState and Server Action return **must match**(Attention also to the Generic retrn type ). So we have to:
+
+```javascript
+  "use server";
+
+import { z } from "zod";
+
+interface CreateTopicFormState {
+  errors: {
+    name?: string[];
+    description?: string[];
+  };
+}
+
+const createTopicSchema = z.object({
+  name: z
+    .string()
+    .min(3)
+    .regex(
+      /[a-z-]/, // lowercase or dash characters
+      { message: "Must be lowercase letter or dashes without spaces" }
+    ),
+  description: z.string().min(10),
+});
+
+export async function createTopic(formState: CreateTopicFormState, formData: FormData): Promise<CreateTopicFormState> {
+  const result = createTopicSchema.safeParse({ name: formData.get("name"), description: formData.get("description") });
+
+  if (!result.success) {
+    // console.log(result.error.flatten().fieldErrors); // Method to make the error mapping easier
+    return { errors: result.error.flatten().fieldErrors };
+  }
+  return { errors: {} };
+
+  //TODO: revalidatePath('/')
+}
+```
+
+- In the client:
+  - Set initial state that matches the type;
+  - set the action in the form;
+  - Create conditional rendering logic for the error messages:
+    (in our project we made the rendering element a lil different as we are using NextUI)
+
+```javascript
+"use client";
+import { useFormState } from "react-dom";
+import * as actions from "@/actions";
+
+function TopicCreateForm() {
+  const [formState, action] = useFormState(actions.createTopic, { errors: {} }); // Remember it must match with the type that returns from the server action
+
+  return (
+        <form action={action}>
+          {//... Logic}
+            {formState.errors.description && <div>{formState.errors.description[0]}</div>}
+          {//... Logic}
+        </form>
+  );
+}
+
+export default TopicCreateForm;
+
+```
 
 #### Some Obs During the Development:
 
