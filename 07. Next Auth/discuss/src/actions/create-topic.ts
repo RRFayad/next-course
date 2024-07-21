@@ -1,11 +1,13 @@
 "use server";
 
 import { z } from "zod";
+import { auth } from "@/auth";
 
 interface CreateTopicFormState {
   errors: {
     name?: string[];
     description?: string[];
+    _form?: string[]; // Stephen used this weird name to act like a "metadata" and not to conflict with any possible data name
   };
 }
 
@@ -27,6 +29,16 @@ export async function createTopic(formState: CreateTopicFormState, formData: For
     // console.log(result.error.flatten().fieldErrors); // Method to make the error mapping easier
     return { errors: result.error.flatten().fieldErrors };
   }
+
+  const session = await auth();
+  if (!session || !session.user) {
+    return {
+      errors: {
+        _form: ["You must be logged in"],
+      },
+    };
+  }
+
   return { errors: {} };
 
   //TODO: revalidatePath('/')

@@ -887,8 +887,16 @@ export default TopicCreateForm;
 
 ```
 
+#### Handling "General Form Errors"
+
+- We want to adding auth verification (we want the user to be logged in to create a new topic)
+
+  - So it will be a verification for the whole form, not each input error
+
+-
+
 #### Some Obs During the Development:
 
-- **Caching Issues: **During the development, it makes sense from time to time to run _npm run build_ and check the caching
+- **Caching Issues:** During the development, it makes sense from time to time to run _npm run build_ and check the caching
 - We centralize 'repeated components' such as the navbar in the layout.tsx
 - **Styling:** Note how Stephen set the Home Page with a grid
