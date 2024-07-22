@@ -916,5 +916,15 @@ export default TopicCreateForm;
 
   - We _can not_ insert useFormStatus directly in the component with the form
   - We have to create the FormButton as a child component
+  - **Obs.:** Remember it must the a client component, as it has a hook
 
 - useFormStatus() returns the status.pending and nextUi Button has a default loadingSpinner to the isLoading attribute
+
+#### 86. Fetching and Listing Content from Prisma
+
+- Now, we want to list the topic out in our HomePage
+
+  - They should be link to navigate
+
+- Nothing really new here (except for the UI elements)
+  - We fetched the data, mapped it and rendered in the Home Page with some basic styling
