@@ -905,3 +905,16 @@ export default TopicCreateForm;
 - **Caching Issues:** During the development, it makes sense from time to time to run _npm run build_ and check the caching
 - We centralize 'repeated components' such as the navbar in the layout.tsx
 - **Styling:** Note how Stephen set the Home Page with a grid
+
+## 08. Usign Data - Database Queries
+
+#### 85. Loading Spinners with UseFormStatus
+
+- We inserted a setTimeout to simulate a delay, so we insert a loading spinner when submitting the form
+
+- We want to se useFormStatus for that. The useFormStatus Hook provides status information of the last form submission, but here's the tricky part:
+
+  - We _can not_ insert useFormStatus directly in the component with the form
+  - We have to create the FormButton as a child component
+
+- useFormStatus() returns the status.pending and nextUi Button has a default loadingSpinner to the isLoading attribute

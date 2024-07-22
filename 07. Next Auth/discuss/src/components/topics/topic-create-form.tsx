@@ -1,6 +1,8 @@
 "use client";
 import { useFormState } from "react-dom";
 import { Input, Button, Textarea, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+
+import FormButton from "../common/topic-submit-btn";
 import * as actions from "@/actions";
 
 function TopicCreateForm() {
@@ -44,7 +46,7 @@ function TopicCreateForm() {
             {formState.errors._form && (
               <div className="p-2 bg-red-200 border border-red-400">{formState.errors._form?.join(", ")}</div>
             )}
-            <Button type="submit">Submit</Button>
+            <FormButton>Save</FormButton>
           </div>
         </form>
       </PopoverContent>
