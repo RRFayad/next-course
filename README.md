@@ -928,3 +928,7 @@ export default TopicCreateForm;
 
 - Nothing really new here (except for the UI elements)
   - We fetched the data, mapped it and rendered in the Home Page with some basic styling
+
+#### 87. Scaffolding the Topic Show Page
+
+- Nothing Specific - Just want to observe again that Stephen always cretes a Grid for each page

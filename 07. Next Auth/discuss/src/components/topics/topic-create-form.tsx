@@ -2,7 +2,7 @@
 import { useFormState } from "react-dom";
 import { Input, Button, Textarea, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 
-import FormButton from "../common/topic-submit-btn";
+import FormButton from "../common/form-button";
 import * as actions from "@/actions";
 
 function TopicCreateForm() {
