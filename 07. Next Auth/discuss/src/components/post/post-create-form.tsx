@@ -23,16 +23,16 @@ function PostCreateForm() {
               label="Title"
               labelPlacement="outside"
               placeholder="Title"
-              // isInvalid={!!formState.errors.title}
-              // errorMessage={formState.errors.title?.join(", ")}
+              isInvalid={!!formState.errors.title}
+              errorMessage={formState.errors.title?.join(", ")}
             />
             <Textarea
               name="content"
               label="Content"
               labelPlacement="outside"
               placeholder="Post content"
-              // isInvalid={!!formState.errors.content}
-              // errorMessage={formState.errors.content?.join(", ")}
+              isInvalid={!!formState.errors.content}
+              errorMessage={formState.errors.content?.join(", ")}
             />
             <FormButton>Submit Post</FormButton>
           </div>

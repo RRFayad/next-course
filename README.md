@@ -935,4 +935,8 @@ export default TopicCreateForm;
 
 #### 88. Displaying a Creation Form
 
--
+- Nothin new Here
+
+#### 89. Applying Validation to Post Creation
+
+- Nothin new Here
