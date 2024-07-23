@@ -33,6 +33,15 @@ export async function createPost(formState: CreatePostFormState, formData: FormD
     return { errors: validationResult.error.flatten().fieldErrors };
   }
 
+  const session = await auth();
+  if (!session || !!session.user) {
+    return {
+      errors: {
+        _form: ["User not logged in"],
+      },
+    };
+  }
+
   return { errors: {} };
 
   // revalidatePath('/')is not too relevant to be instantaneous, it can be revalidated by time

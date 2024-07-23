@@ -935,8 +935,23 @@ export default TopicCreateForm;
 
 #### 88. Displaying a Creation Form
 
-- Nothin new Here
+- Nothing new Here - Its about the PopOver form component to create a new post
 
 #### 89. Applying Validation to Post Creation
 
-- Nothin new Here
+- Nothing new Here - It's about the zod logic in the crete-post action
+
+#### 90. Checking Authentication Status
+
+- Remember - We check the auth in the server action:
+
+```javascript
+const session = await auth();
+if (!session || !!session.user) {
+  return {
+    errors: {
+      _form: ["User not logged in"],
+    },
+  };
+}
+```
