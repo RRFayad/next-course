@@ -19,9 +19,14 @@ interface CreatePostFormState {
 const createPostSchema = z.object({
   title: z.string().min(3),
   content: z.string().min(10),
+  topic: z.string().min(1),
 });
 
-export async function createPost(formState: CreatePostFormState, formData: FormData): Promise<CreatePostFormState> {
+export async function createPost(
+  topicSlug: string,
+  formState: CreatePostFormState,
+  formData: FormData
+): Promise<CreatePostFormState> {
   console.log(formData);
 
   const validationResult = createPostSchema.safeParse({
@@ -38,6 +43,18 @@ export async function createPost(formState: CreatePostFormState, formData: FormD
     return {
       errors: {
         _form: ["User not logged in"],
+      },
+    };
+  }
+
+  const topic = await db.topic.findFirst({
+    where: { slug: topicSlug },
+  });
+
+  if (!topic) {
+    return {
+      errors: {
+        _form: ["Can not find topic"],
       },
     };
   }

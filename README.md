@@ -955,3 +955,21 @@ if (!session || !!session.user) {
   };
 }
 ```
+
+#### 91. Passing Additional Args to a Server Action
+
+- To pass aditional args to the Server action, we bind it with the actoin in the useFormState:
+
+  ```javascript
+  const [formState, action] = useFormState(actions.createPost.bind(null, topicSlug), { errors: {} });
+  ```
+
+- Now, our server action receives the topicSlug as the 1st arg:
+
+  ```javascript
+  export async function createPost(
+  topicSlug: string,
+  formState: CreatePostFormState,
+  formData: FormData
+  ): Promise<CreatePostFormState> {}
+  ```
