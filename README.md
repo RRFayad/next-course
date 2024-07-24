@@ -981,3 +981,34 @@ if (!session || !!session.user) {
 #### 94. Mergins some files
 
 - We added some components just to skip the code without new concepts
+
+#### 95. Considerations Around Where to Fetch Data
+
+- In our post-list file, we are gonna to implement data fetching, which has different possible approach and design patterns
+
+  - We will render the Post List inside the TopicShowPage;
+  - The Post List component will render a lot of data:
+    - All posts, Name of creator, comments associated, post id, topic slug
+  - **Obs.:** In our case the discussion is only about the direct child, but the discussion is about the decision in bigger projects (with more children components)
+
+- Option 1: Priorization in the higher level (page) component - Traditional React - Passing props
+
+  - Pros:
+    - Easy to understand what data is fetched
+    - Make child components more reusable
+    - Easier to avoid "n+1" query issues:
+      - **N+1 Problem**: it happens when:
+        - we do a query, get some data (like our list of posts);
+        - to then, each post becoming a postItemComponent - Each one querying in he db by itself
+        - (like bigO problem for querying DB)
+      - So, it's easier to avoid determing in the list component what data we need in the 1st query
+  - Cons:
+    - Can lead to overfetching data;
+    - Can lead to duplicate code in other Pages using the child component
+    - Can lead to annoying interfaces: Props that are models with an additional data
+
+- Option 2: Child component fetches its own data
+  - Pros:
+    - Easier to build 'skeleton' loading pages;
+  - Cons:
+    - Not reusable components
