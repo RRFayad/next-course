@@ -982,7 +982,7 @@ if (!session || !!session.user) {
 
 - We added some components just to skip the code without new concepts
 
-#### 95. Considerations Around Where to Fetch Data
+#### 95. Considerations Around Where to Fetch Data and 96. Data Fetching in Child Components
 
 - In our post-list file, we are gonna to implement data fetching, which has different possible approach and design patterns
 
@@ -1012,3 +1012,22 @@ if (!session || !!session.user) {
     - Easier to build 'skeleton' loading pages;
   - Cons:
     - Not reusable components
+
+#### 97. Recommended Data Fetching
+
+- Looking again to our options:
+
+  - Option 1 has slower page load and more reusable components;
+  - Option 2 has faster page load and less reusable components;
+
+- We going to make a decision in the middle
+  - We are going to fetch data from the child component;
+  - But in a reusable way;
+  - We will define in the parent what type of data should be fetched (passing a fetching function via props)
+    - And the the child component will render it
+
+#### 98. Define in Parent, Fetch in Child
+
+- Step 1: Created the db query (posts.ts file inside db folder);
+- Step 2: Fetch the data inside the postList component;
+- Step 3: Display postList in the parent component (to pass the child component)

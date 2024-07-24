@@ -1,14 +1,20 @@
-import type { Post, User, Topic } from '@prisma/client';
-import Link from 'next/link';
-import paths from '@/paths';
+import type { PostWithData } from "@/db/queries/posts";
+import type { Post, User, Topic } from "@prisma/client";
+import Link from "next/link";
+import paths from "@/paths";
 
-// TODO: Get list of posts into this component somehow
-export default function PostList() {
+interface PostListProps {
+  fetchData: () => Promise<PostWithData[]>;
+}
+
+export default async function PostList({ fetchData }: PostListProps) {
+  const posts = await fetchData();
+
   const renderedPosts = posts.map((post) => {
     const topicSlug = post.topic.slug;
 
     if (!topicSlug) {
-      throw new Error('Need a slug to link to a post');
+      throw new Error("Need a slug to link to a post");
     }
 
     return (
@@ -17,9 +23,7 @@ export default function PostList() {
           <h3 className="text-lg font-bold">{post.title}</h3>
           <div className="flex flex-row gap-8">
             <p className="text-xs text-gray-400">By {post.user.name}</p>
-            <p className="text-xs text-gray-400">
-              {post._count.comments} comments
-            </p>
+            <p className="text-xs text-gray-400">{post._count.comments} comments</p>
           </div>
         </Link>
       </div>
