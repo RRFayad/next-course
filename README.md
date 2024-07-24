@@ -977,3 +977,7 @@ if (!session || !!session.user) {
 #### 92. Creating the Record
 
 - Implemented saving data (post) in the db
+
+#### 94. Mergins some files
+
+- We added some components just to skip the code without new concepts
