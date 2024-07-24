@@ -973,3 +973,7 @@ if (!session || !!session.user) {
   formData: FormData
   ): Promise<CreatePostFormState> {}
   ```
+
+#### 92. Creating the Record
+
+- Implemented saving data (post) in the db
