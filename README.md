@@ -1031,3 +1031,9 @@ if (!session || !!session.user) {
 - Step 1: Created the db query (posts.ts file inside db folder);
 - Step 2: Fetch the data inside the postList component;
 - Step 3: Display postList in the parent component (to pass the child component)
+
+#### 99. Alternative Type Names and Query Definitions
+
+- We could define the type in an 'easier' way:
+
+`export type PostWithData_OPTIONAL_VERSION = Awaited<ReturnType<typeof fetchPostsByTopicSlug>>[number]; // [number] means "take on element of the resulted array"`
