@@ -1037,3 +1037,7 @@ if (!session || !!session.user) {
 - We could define the type in an 'easier' way:
 
 `export type PostWithData_OPTIONAL_VERSION = Awaited<ReturnType<typeof fetchPostsByTopicSlug>>[number]; // [number] means "take on element of the resulted array"`
+
+#### 100. Don't Go Crazy With Reuse
+
+- It's more to focus that we can sometimes simply fetch the data from the component, and don't worry about the component not being reusable
