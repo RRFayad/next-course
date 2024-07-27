@@ -1108,3 +1108,21 @@ import { Suspense } from "react";
   <PostShow postId={postId} />
 </Suspense>;
 ```
+
+#### 110. Adding a Loading Skeleton
+
+- We can set up some skeletons to be shown while loading
+  - We make them and use them in the fallback of the suspense
+
+```javascript
+<div className="m-4">
+  <div className="my-2">
+    <Skeleton className="h-8 w-48" />
+  </div>
+  <div className="p-4 border rounded space-y-2">
+    <Skeleton className="h-6 w-32" />
+    <Skeleton className="h-6 w-32" />
+    <Skeleton className="h-6 w-32" />
+  </div>
+</div>
+```
