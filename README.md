@@ -1067,3 +1067,10 @@ if (!session || !!session.user) {
 - Right now we have the big list of comments in the parent component (Comment List) to then pass them to the children components ("commentShow()"s);
 
 - We are going to pass the postId only via props, and each child component will fetch data
+  - So the query function will be called many times
+  - It will be unecessary, so there's a Next feature for it
+
+#### 105. Introducing Duplicate Queries
+
+- We refactored our code to make each comment component to make a request, so, right now there's many requests being ran at the same time
+  - The problem is, as comments are nested, sometimes the exact same comment is queried more than once
