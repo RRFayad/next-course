@@ -1084,3 +1084,27 @@ if (!session || !!session.user) {
 
 - In the query (in our case 'queries/comments') we simply make the query function an arrow function, and wrap it in the cache() (imported from react)
   - Now the actual function will not be duplicated
+
+## Section 10: Implementing Search Functionality
+
+#### 108. Adding in Component Streaming
+
+- Remembering that most content is coming from server components, right now, the server generates he html, to then generate the JS to send to the client
+
+- As each component is fetching data, we can add some Suspense to crfeate the empty spaces while JS is fetching data
+  - Which will change how data is fetched
+  - And let us implement loading spinners
+
+#### 109. Streaming with Suspense
+
+- We added a setTimeout to make the load longer
+
+- We wrapped the componet with the Suspense (from React), show it show it while loading
+
+```javascript
+import { Suspense } from "react";
+
+<Suspense fallback={<div>Loading...</div>}>
+  <PostShow postId={postId} />
+</Suspense>;
+```
