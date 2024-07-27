@@ -1,13 +1,14 @@
+import type { CommentWithAuthor } from "@/db/queries/comments";
 import Image from "next/image";
 import { Button } from "@nextui-org/react";
 import CommentCreateForm from "@/components/comments/comment-create-form";
 
 interface CommentShowProps {
   commentId: string;
+  comments: CommentWithAuthor[];
 }
 
-// TODO: Get a list of comments
-export default function CommentShow({ commentId }: CommentShowProps) {
+export default function CommentShow({ commentId, comments }: CommentShowProps) {
   const comment = comments.find((c) => c.id === commentId);
 
   if (!comment) {
@@ -16,9 +17,7 @@ export default function CommentShow({ commentId }: CommentShowProps) {
 
   const children = comments.filter((c) => c.parentId === commentId);
   const renderedChildren = children.map((child) => {
-    return (
-      <CommentShow key={child.id} commentId={child.id} comments={comments} />
-    );
+    return <CommentShow key={child.id} commentId={child.id} comments={comments} />;
   });
 
   return (
@@ -32,9 +31,7 @@ export default function CommentShow({ commentId }: CommentShowProps) {
           className="w-10 h-10 rounded-full"
         />
         <div className="flex-1 space-y-3">
-          <p className="text-sm font-medium text-gray-500">
-            {comment.user.name}
-          </p>
+          <p className="text-sm font-medium text-gray-500">{comment.user.name}</p>
           <p className="text-gray-900">{comment.content}</p>
 
           <CommentCreateForm postId={comment.postId} parentId={comment.id} />

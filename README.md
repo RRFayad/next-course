@@ -1041,3 +1041,19 @@ if (!session || !!session.user) {
 #### 100. Don't Go Crazy With Reuse
 
 - It's more to focus that we can sometimes simply fetch the data from the component, and don't worry about the component not being reusable
+
+#### 102. Recursively Rendering Components
+
+- Now we want to show the comment list, which may have nested comments (and so on, can be an infinite nesting)
+  - So, each comment will look for a possible nested comment (even the already nested comment)
+  - We will have 2 approaches: 01 "normal" with props
+  - And one with another Next Features we haven't seen yet
+
+#### 103. Fetching the Big List
+
+- Approach 1 (same as we used in the topic show page):
+  - Create a comment query file;
+    - Define a new type and define a fetchCommentsByPostId()
+  - Import it in the PostShowPage
+    - Pass it through props to the CommentList
+  - IN the CommentList we will call fetchComments
