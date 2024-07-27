@@ -1057,3 +1057,13 @@ if (!session || !!session.user) {
   - Import it in the PostShowPage
     - Pass it through props to the CommentList
   - IN the CommentList we will call fetchComments
+
+## Section 09: Cachin with Request Memoization
+
+#### 104. Multiple Repated DB Queries
+
+- Just for studying purposes, we are gonna refactor our fetch comments solution to show another Next Feature
+
+- Right now we have the big list of comments in the parent component (Comment List) to then pass them to the children components ("commentShow()"s);
+
+- We are going to pass the postId only via props, and each child component will fetch data
