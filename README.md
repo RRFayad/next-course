@@ -1079,3 +1079,8 @@ if (!session || !!session.user) {
 
 - To deduplicate the fetching functions, Next hve Request Memozation Caching
   - Which is atopmatically used with the built-in 'fetch' feunction (when the arguments are the same between different calls)
+
+#### 107. Deduplicating Requests with Cache
+
+- In the query (in our case 'queries/comments') we simply make the query function an arrow function, and wrap it in the cache() (imported from react)
+  - Now the actual function will not be duplicated
