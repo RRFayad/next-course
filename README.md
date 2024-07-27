@@ -1074,3 +1074,8 @@ if (!session || !!session.user) {
 
 - We refactored our code to make each comment component to make a request, so, right now there's many requests being ran at the same time
   - The problem is, as comments are nested, sometimes the exact same comment is queried more than once
+
+#### 106. Request Memoization
+
+- To deduplicate the fetching functions, Next hve Request Memozation Caching
+  - Which is atopmatically used with the built-in 'fetch' feunction (when the arguments are the same between different calls)
