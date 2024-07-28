@@ -1207,3 +1207,11 @@ export async function search(formData: FormData) {
 
 - Now its ok, but, import to remember what we said before:
   - We have to wrap it in Suspense element, because f we don't, if will show a problem in production
+
+#### 118. The De-Opt to Client Side Rendering Warning
+
+- "Entire page /search deopted into client-side rendering"
+
+  - This is the error
+
+- We need to wrap the client component in the Suspense element
