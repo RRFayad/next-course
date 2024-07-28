@@ -1215,3 +1215,7 @@ export async function search(formData: FormData) {
   - This is the error
 
 - We need to wrap the client component in the Suspense element
+
+#### Wrap Up & Takeaways
+
+![Wrap Up](./readme%20imgs/Wrap%20Up.png)
