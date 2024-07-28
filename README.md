@@ -1197,3 +1197,13 @@ export async function search(formData: FormData) {
   <Input name="term" defaultValue={searchParams.get("term") || ""} />
 </form>
 ```
+
+#### 117. Running the Search
+
+- Now we want to implement the search per se
+
+  - We will 1st implement a query for the searched term
+  - And then Run it in our page
+
+- Now its ok, but, import to remember what we said before:
+  - We have to wrap it in Suspense element, because f we don't, if will show a problem in production
