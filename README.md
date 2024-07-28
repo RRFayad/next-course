@@ -1130,3 +1130,7 @@ import { Suspense } from "react";
 #### 111. Top Posts on the HomePage
 
 - We are gonna create a query function, and use the postList component to show the top posts on the HomePage
+
+#### 112. Back to the Search Input
+
+- Just created the separated Input Component
