@@ -1169,3 +1169,31 @@ function SearchInput() {
 
 export default SearchInput;
 ```
+
+#### 115. Implemented Redirecting From a Server Action & 116. Receiving the Query String in a Server Component
+
+- Created the server action:
+
+```javascript
+"use server";
+
+import { redirect } from "next/navigation";
+
+export async function search(formData: FormData) {
+  const term = formData.get("term");
+
+  if (typeof term !== "string" || !term) {
+    redirect("/");
+  }
+
+  redirect(`/search?term=${term}`);
+}
+```
+
+- Created the form around the input (Stephen mentioned that we could use React approach of submitHandlers, but kept the form approach)
+
+```javascript
+<form action={actions.search}>
+  <Input name="term" defaultValue={searchParams.get("term") || ""} />
+</form>
+```
