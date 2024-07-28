@@ -1134,3 +1134,38 @@ import { Suspense } from "react";
 #### 112. Back to the Search Input
 
 - Just created the separated Input Component
+
+#### 113. Notes on QueryStrings in Next
+
+- We want to make the searchInput to work like the Wikipedia's, which saves the search string with a QueryString
+
+- So we will make our search term as a param together with the search feature
+
+  - Obviously we don't need to do that, it's only for studying purposes
+
+- We have 2 approaches:
+  ![Query Strings](./readme%20imgs/Query%20Strings.png)
+
+- **Important**: Client components using useSearchParams() must be wrapped with "Suspense" (or it will cause errors in _production_)
+- Also, useSearchParams make our routes dinamic
+
+#### 114. Accessing the Query String
+
+- We are going to use the client component approach
+
+- We implemented the default value of the search param
+
+```javascript
+"use client";
+
+import { Input } from "@nextui-org/react";
+import { useSearchParams } from "next/navigation";
+
+function SearchInput() {
+  const searchParams = useSearchParams();
+
+  return <Input defaultValue={searchParams.get("term") || ""} />;
+}
+
+export default SearchInput;
+```
