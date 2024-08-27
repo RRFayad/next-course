@@ -105,7 +105,7 @@ if (false) {
   - Validate input (zod)
   - Redirect ?
 
-#### Server Actions
+### Server Components and Server Actions
 
 - Functions to be called when a form is submitted
 - Always have "use server"
@@ -236,3 +236,65 @@ const createSnippet = async (formData: FormData) => {
     <button className="p-2 border rounded">Delete</button>
   </form>
   ```
+
+## 5. Server Form wih UseFormState
+
+- Form can run without js (which mean they can be ran as server components)
+  - If we run it as client components, we can validate in the client, ut also would need to validate on the server
+- useFormState can be used in a Client Component to communicate the feedback from the server to the client
+
+#### How to implement it:
+
+- In the Client:
+
+  ```javascript
+  const [formState, action] = useFormState(actions.createSnippet, { message: "" });
+
+  return (
+  <form action={action}>
+    // ...
+       {formState.message && <div className="my-1  text-red-500">{formState.message}</div>}
+
+  <button type="submit" className="rounded p-2 bg-blue-200">
+      Create
+  </button>
+  </form>;
+  )
+  ```
+
+- In the server:
+  ```javascript
+    export async function createSnippet(formState: { message: string }, formData: FormData) {
+    return { message: "Title must be longer" };
+    }
+  ```
+
+#### Handling Errors in the Server Action
+
+- An error in the db interaction would break our code;
+- There's the error page default route, and we shold create 'error.tsx' and **it must be a client component**
+  - So, the best approach is to return the rror message and render it in the error page
+
+```javascript
+  export async function createSnippet(formState: { message: string }, formData: FormData) {
+  // data handling logic here...
+
+try {
+  // Create a new record in the database
+  const snippet = await db.snippet.create({
+    data: {
+      title,
+      code,
+    },
+  });
+} catch (err: unknown) {
+  if (err instanceof Error) {
+    return { message: err.message };
+  } else {
+    return { message: "Something Went Wrong" };
+  }
+}
+
+redirect("/"); // Never use it inside the try catch (it will return a weird error message)
+}
+```
