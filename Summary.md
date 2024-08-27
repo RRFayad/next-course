@@ -133,46 +133,106 @@ const createSnippet = async (formData: FormData) => {
 
 ##### Client Component
 
-    - Same as React component
-    - Has 'use client' at the top
-    - Can not show directly a Server Component (exception: when it gets a server action as event handler through props)
-    - Usually, our client components stays in a 'components' folder
+- Same as React component
+- Has 'use client' at the top
+- Can not show directly a Server Component (exception: when it gets a server action as event handler through props)
+- Usually, our client components stays in a 'components' folder
 
 ##### Server Component
 
-    - Our general preference and default (better performance and UX)
-    - We can use async/await directly in the component
+- Our general preference and default (better performance and UX)
+- We can use async/await directly in the component
 
-    - It **can not** use hooks
-    - It **can not** use event handlers
+- It **can not** use hooks
+- It **can not** use event handlers
 
 ##### When to use each
 
-    - We always want Server Components, axcept when we need to use hooks or event handlers
+- We always want Server Components, axcept when we need to use hooks or event handlers
 
 #### Next Server Dynamics:
 
-    - Browser makes Request
-    - Server Components return a HTML
-    - New HTTP Request is made
-    - Server bundles Client Components into js
+- Browser makes Request
+- Server Components return a HTML
+- New HTTP Request is made
+- Server bundles Client Components into js
 
 #### Fetching Data in a Server Component Checklist:
 
-    1. Create a server component (there's no 'use client' at the top)
-    2. Make it async
-    3. Access the DB or make an HTTP request
-    4. Render it (os pass it to a child)
+1. Create a server component (there's no 'use client' at the top)
+2. Make it async
+3. Access the DB or make an HTTP request
+4. Render it (os pass it to a child)
 
-#### Observatoins about Client COmponents in a Server Component:
+#### Observations about Client Components in a Server Component:
 
-    - We have to use hooks or event handlers, so we need a client component
-    - Usually, we don't want the whole page as client component (as we may be fetching data), but a client component inside a server component
+- We have to use hooks or event handlers, so we need a client component
+- Usually, we don't want the whole page as client component (as we may be fetching data), but a client component inside a server component
 
 ##### Server actions and Client COmponents:
 
-    - Server actions **can not** be defined in client components (as it would access databases);
-    - So it can be passed as props
-    - The best way is to cretralize the actions, creating an actions.tsx with all the server actions to be imported
-        - In that, we write "use server" only once at the top of the file, not for each function
+- Server actions **can not** be defined in client components (as it would access databases);
+- So it can be passed as props, or from a separated server component
+- The best way is to crentralize the actions, creating an actions.tsx with all the server actions to be imported
+  - In that, we write "use server" only once at the top of the file, not for each function;
+  - If we call it index.tsx we don't have to specify the file name in the import, it's implict
+- Importing it from an action file, also has 02 approaches:
 
+  - Using bind (Next docs usually takes this approach):
+    - ![Option 1](./readme%20imgs/option1.png)
+  - More Regular React Approach (my preference)
+    - ![Option 2](./readme%20imgs//Option2.png)
+
+- Server action example:
+
+  ```javascript
+  "use server";
+
+  import { db } from "@/db";
+  import { redirect } from "next/navigation";
+
+  export async function editSnippet(id: number, code: string) {
+  await db.snippet.update({
+    where: { id },
+    data: { code },
+  });
+  redirect(`/snippets/${id}`);
+  }
+  ```
+
+  - Server action in a client component (check components/SnippetEditForm.tsx):
+
+  ```javascript
+    // Other imports...
+    import * as actions from "@/actions";
+
+    const componentFunction = ({snippet}: ComponentProps) => {
+
+    const [code, setCode] = useState(snippet.code);
+
+    const editSnippetAction = actions.editSnippet.bind(null, snippet.id, code);
+
+    // Or, this APPROACH:
+    // const editSnippetAction = async () => {
+    //   await actions.editSnippet(code)
+    // }
+
+    return (
+      //...
+
+      <form action={editSnippetAction}>
+        <button type="submit" className="p-2 border rounded">
+          Save
+        </button>
+      </form>
+    )
+    }
+  ```
+
+  - In our project, Stephen always wrapped a button the handles a server action in a form:
+
+  ```javascript
+  <form action={deleteSnippetAction}>
+    <button className="p-2 border rounded">Delete</button>
+  </form>
+  ```
