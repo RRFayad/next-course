@@ -298,3 +298,43 @@ try {
 redirect("/"); // Never use it inside the try catch (it will return a weird error message)
 }
 ```
+
+## 6. Next Caching System
+
+- Next Caching:
+
+  - Data Cache - Fetched data is stores to be reused;
+  - Router Cache - To facilitate navigation
+  - Request Memoization - Avoid redudant's fetches
+  - Full Route Cache - At build time, Next decides if the route is Static (rendered and stored) or Dynamic (rerended every time)
+
+- That's why we should sometimes simulate production, to check the static and dynamic routes
+
+  - npm run build
+    - When we run, we will see in the console:
+      - o for static data - Now will render it only once
+      - ƒ for dynamic data
+  - npm run start
+
+- By default, everything is static, besides:
+
+  - dynamic functions or dynamic variables, such as cookies.set(), cookies.delete(), useSearchParams() and searchParams prop;
+  - Assigning specifc routes configs;
+  - Calling 'fetch' and caching out the resposponse - `fetch('...', {next: {revalidate:0}})`
+  - Dynamic routes - '/snippets/[id]/page.tsx
+
+- Cache controls:
+
+  - On Demand (most-used probably): `revalidatePath('/path-to-be-updated-here')`
+    - Probaly we will set it in the respective server action, after updating data
+  - Time-Based: `export const revalidate = 3  // revalidate each 3 seconds`
+  - Disable Caching: `export const dynamic = "force-dynamic";` (or `export const revalidate = 0`)
+
+- Enabling Caching for Dynamic Routes with generateStaticParams()
+  - The strategy is to force the caching of a dynamic route, and revaldiate only when needed
+    - Probably it worths when there's not a lot of data updates
+  - To implement it:
+    - I should `export synt function generateSaticParams() {}` in the same page file
+      - Check docs, as ai didn't understand that well why it should return an array as strings
+    - Then, in the respective server action, implement before the return (or redirect):
+      - `revalidatePath('/snippets/${id}');`
