@@ -338,3 +338,193 @@ redirect("/"); // Never use it inside the try catch (it will return a weird erro
       - Check docs, as ai didn't understand that well why it should return an array as strings
     - Then, in the respective server action, implement before the return (or redirect):
       - `revalidatePath('/snippets/${id}');`
+
+## Next Auth
+
+- npm install next-auth next-auth/prisma-adapter (check in the docs)
+  - next-auth / authjs are the same library, just renamed
+
+#### Main Steps:
+
+1. Create Database
+
+- Follow Prisma Implementation Steps;
+- When Creating the Schema, there's a Schema template in the Next Auth Docs, which isbuilt to handle sessions, authentication etc;
+
+2. Config the Third Party Apps (E.g. Google, Github, etc) for the OAuth & the .env file
+
+- Create dotenv file with the client id, and secret
+- To the Callback routes, we will have: `http:domain-name.com/api/auth/callback/provider`
+
+3. Create the auth.ts file (check file and docs for details)
+
+4. Create OAuth API
+
+- /app
+  - /api
+    - /auth
+      - [...nextauth]
+        - route.ts
+
+5. OPTIONAL - Implement Auth in Server Actions
+
+#### Auth Functions - Server Component:
+
+```javascript
+import * as actions from "@/actions";
+import { auth } from "@/auth";
+
+export default async function Home() {
+  const session = await auth();
+  return (
+    <div>
+      <form action={actions.signIn}>
+        <Button type="submit">Sign in!!</Button>
+      </form>
+      <form action={actions.signOut}>
+        <Button type="submit">Sign Out!!</Button>
+      </form>
+      {session?.user ? <div>Signed in - {JSON.stringify(session.user)}</div> : <div> Signed out </div>}
+    </div>
+  );
+}
+```
+
+#### Auth Functions - Client Component:
+
+- In provider.tsx - wrap the return with the SessionPrivider
+
+  - I saw in the docs that there are built in methods that we dont have to to this
+
+  ```javascript
+  "use client";
+    import { SessionProvider } from "next-auth/react";
+
+    interface ProvidersProps {
+      children: React.ReactNode;
+    }
+    export default function Providers({ children }: ProvidersProps) {
+      return (
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+      );
+    }
+  ```
+
+- In the client component:
+
+  ```javascript
+  "use client";
+
+  import { useSession } from "next-auth/react";
+
+  export default function Profile() {
+    const session = useSession();
+
+    if (session.data?.user) {
+      return <div>User is signed in! ({JSON.stringify(session.data.user)})</div>;
+    }
+
+    return <div>User NOT signed in!</div>;
+  }
+  ```
+
+  **Obs.**: Usully we will have to implement Auth Logic in CLient components, as if we do as server components, we might have to make our whole application dynamic
+
+## Structuring a Project (Stephens's Step-by-step):
+
+1. Identify the routes
+2. Define the data to be shown in each route
+3. Create a 'path-helper' funcionts file
+4. Create routing folders + page.tsx
+5. Identify places where data is dynamic
+6. Define the nedded server actions (write them empty, only for define)
+   a. **Important:** Add in the comments what paths need to have revalidatePath('/') in the server action
+   - **Remember: revalidatePath() to define dynamic data and avoid Caching Errors**
+
+E.g.:
+
+|   Page Name   |                 Path                 | Data Shown                 |
+| :-----------: | :----------------------------------: | :------------------------- |
+|   Home Page   |                  /                   | Many Posts, Many topics    |
+|  Topic Show   |         /topics/[topicName]          | single topic, many posts   |
+| Create a Post |   /topics/[topicName] / posts/new    | single topic, many posts   |
+|  Show a Post  | /topics/[topicName] / posts/[postId] | single post, many comments |
+
+#### Form Validation with Zod
+
+- We can create a zod schema and use it in the client side and in the server side (server actions)
+
+```javascript
+  "use server";
+
+    import { z } from "zod";
+
+    const createTopicSchema = z.object({
+      name: z
+        .string()
+        .min(3)
+        .regex(
+          /[a-z-]/, // lowercase or dash characters
+          { message: "Must be lowercase letter or dashes without spaces" }
+        ),
+      description: z.string().min(10),
+    });
+
+    export async function createTopic(formData: FormData) {
+      const result = createTopicSchema.safeParse({ name: formData.get("name"), description: formData.get("description") });
+
+      if (!result.success) {
+        console.log(result.error.flatten().fieldErrors); // Method to make the error mapping easier
+      }
+
+      //TODO: revalidatePath('/')
+    }
+```
+
+#### Combining Zod ans useFormState
+
+- **Important:** The types of: useFormState state, serverAction formState and Server Action return **must match**(Attention also to the Generic retrn type )
+
+- In the client:
+
+  - Set initial state that matches the type;
+  - Set the action in the form;
+  - Create conditional rendering logic for the error messages
+
+- Client Component:
+
+```javascript
+"use client";
+//Imports...
+function TopicCreateForm() {
+  const [formState, action] = useFormState(actions.createTopic, { errors: {} }); // Remember it must match with the type that returns from the server action
+
+  return (
+        <form action={action}>
+          {//... Logic}
+            {formState.errors.description && <div>{formState.errors.description[0]}</div>}
+          {//... Logic}
+        </form>
+  );
+}
+``
+```
+
+- Server Action
+
+```javascript
+  /// createTopicSchema Logic (Zod Schema)
+
+  export async function createTopic(formState: CreateTopicFormState, formData: FormData): Promise<CreateTopicFormState> {
+  const result = createTopicSchema.safeParse({ name: formData.get("name"), description: formData.get("description") });
+
+  if (!result.success) {
+    // console.log(result.error.flatten().fieldErrors); // Method to make the error mapping easier
+    return { errors: result.error.flatten().fieldErrors };
+  }
+  return { errors: {} };
+
+}
+```
