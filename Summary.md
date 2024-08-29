@@ -528,3 +528,64 @@ function TopicCreateForm() {
 
 }
 ```
+
+## 08. Using Data - Database Queries & UX
+
+#### useFormStatus and LoadingSpinners while form is processing
+
+- We have the useFormStatus() ho get the form submission status
+
+  - So, we can get the pending value, and while it's true, show a loading spinner
+
+- **Obs:** We _can not_ have the useFormStatus directly in the form component, we have to have a separate FormButton component as a child
+
+```javascript
+  "use client";
+import { useFormStatus } from "react-dom";
+import { Button } from "@nextui-org/react";
+
+interface FormButtonProps {
+  children: React.ReactNode;
+}
+
+function FormButton({ children }: FormButtonProps) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type="submit" isLoading={pending}>
+      {children}
+    </Button>
+  );
+}
+
+export default FormButton;
+```
+
+#### Loading Skeletons
+
+- While some components are loading, we can add skeletons with React Suspense:
+
+```javascript
+<div className="m-4">
+  <div className="my-2">
+    <Skeleton className="h-8 w-48" />
+  </div>
+  <div className="p-4 border rounded space-y-2">
+    <Skeleton className="h-6 w-32" />
+    <Skeleton className="h-6 w-32" />
+    <Skeleton className="h-6 w-32" />
+  </div>
+</div>
+```
+
+```javascript
+import { Suspense } from "react";
+
+<Suspense fallback={<SkeletonComponent />}>
+  <PostShow postId={postId} />
+</Suspense>;
+```
+
+#### Adding Search Function
+
+- We are gonna create a query function to handle the search string via params, and use it to run an include db function
